@@ -1,0 +1,35 @@
+﻿@using LibraryManagment.ViewModels;
+@model LibraryManagment.ViewModels.BookViewModel
+
+@{
+    ViewData["Title"] = "Add Book";
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+
+<form action="Create" method="post">
+    <div class="mb-3 col-md-3">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" asp-for="Title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3 col-md-3">
+        <label class="form-label">Author</label>
+        <input type="text" class="form-control" asp-for="Author" />
+    </div>
+    <div class="mb-3 col-md-3">
+        <label class="form-label">Genre</label>
+        <input type="text" class="form-control" asp-for="Genre" />
+    </div>
+    <div class="mb-3 col-md-3">
+        <label asp-for="AvailabilityStatus" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="AvailabilityStatus" asp-items="Html.GetEnumSelectList<Status>()" class="form-select">
+                <option selected="selected" value="">Please select</option>
+            </select>
+        </div>
+    </div>
+    <div class="d-grid col-md-3">
+        <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+</form>
