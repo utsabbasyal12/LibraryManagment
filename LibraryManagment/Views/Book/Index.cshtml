@@ -1,0 +1,52 @@
+﻿@model List<LibraryManagment.ViewModels.BookViewModel>
+
+@{
+    ViewData["Title"] = "Books Details";
+}
+<h3>@ViewData["Title"]</h3>
+<hr/>
+
+<form>
+    <button asp-action="Create" asp-controller="Book" class="btn btn-primary mb-2">Add Books</button>
+    <table class="table table-responsive table-hover table-bordered">
+        <thead>
+            <tr class="table-active">
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null && Model.Any())
+            {
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.BookId</td>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>
+                        <td>@book.Genre</td>
+                        <td>@book.AvailabilityStatus</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a asp-controller="Book" asp-action="Edit" asp-route-id="@book.BookId" class="btn btn-secondary">Edit</a>
+                                <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                        No Record Found
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
