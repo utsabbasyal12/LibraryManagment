@@ -14,7 +14,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IBookMgmtRepository, BookMgmtRepository>();
+builder.Services.AddTransient<ILibraryMemberRepository, LibraryMemberRepository>();
 builder.Services.AddTransient<IBookMgmtService, BookMgmtService>();
+builder.Services.AddTransient<ILibraryMemberService, LibraryMemberService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

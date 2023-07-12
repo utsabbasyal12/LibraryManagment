@@ -40,9 +40,9 @@ namespace BookManagementAPI.Controllers
             return Ok(data);
         }
         [HttpGet("DeleteMember")]
-        public async Task<IActionResult> DeleteMember(int Id)
+        public async Task<IActionResult> DeleteMember(int MemberId)
         {
-            await _service.DeleteMemberAsync(Id);
+            await _service.DeleteMemberAsync(MemberId);
             return Ok("Member Deleted Successfully.");
         }
     }
