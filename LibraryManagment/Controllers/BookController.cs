@@ -41,19 +41,39 @@ namespace LibraryManagment.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var Message = await _manager.AddBookAsync(bookView);
-                    if (Message != null)
+                    if (bookView.BookId != 0)
                     {
-                        TempData["successMessage"] = "Employee Created Successfully";
-                        return RedirectToAction("Index");
+                        var data = await _manager.UpdateBookAsync(bookView);
+                        if (data != null)
+                        {
+                            TempData["successMessage"] = "Employee Updated Successfully";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            await GetAllBooks();
+                            TempData["errorMessage"] = "Error on Adding";
+                            return View("Index", bookView);
+
+                        }
                     }
                     else
                     {
-                        await GetAllBooks();
-                        TempData["errorMessage"] = "Error on Adding";
-                        return View("Index", bookView);
+                        var data = await _manager.AddBookAsync(bookView);
+                        if (data != null)
+                        {
+                            TempData["successMessage"] = "Employee Created Successfully";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            await GetAllBooks();
+                            TempData["errorMessage"] = "Error on Adding";
+                            return View("Index", bookView);
 
+                        }
                     }
+
                 }
                 else
                 {

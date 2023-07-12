@@ -10,10 +10,10 @@
 <form asp-action="Create" asp-controller="Book" method="post">
     <div class="form-group row p-4">
         <fieldset class="row border">
+            <input type="text" asp-for="BookId" hidden="hidden" />
             <div class="mb-3 col-md-3">
                 <label class="form-label">Title</label>
                 <input type="text" class="form-control" asp-for="Title" />
-                @*   <span asp-validation-for="Title" class="text-danger"></span>*@
             </div>
             <div class="mb-3 col-md-3">
                 <label class="form-label">Author</label>
@@ -31,12 +31,11 @@
             </div>
             <div class="d-grid col-md-1 mb-2">
                 <button type="submit" id="Save" class="btn btn-success">Save</button>
-                <button type="submit" id="Update" class="btn btn-warning" style="display:none">Update</button>
+                <button type="submit" id="Update" name="Update" class="btn btn-warning" style="display:none">Update</button>
             </div>
         </fieldset>
     </div>
 </form>
-@*  <button asp-action="Create" asp-controller="Book" class="btn btn-primary mb-2">Add Books</button>*@
 <table class="table table-responsive table-hover table-bordered">
     <thead>
         <tr class="table-active">
@@ -62,7 +61,6 @@
                     <td>
                         <div class="btn-group btn-group-sm">
                             <button type="button" class="btn btn-secondary" onclick="Edit(@book.BookId)">Edit</button>
-                            @*<a asp-controller="Book" asp-action="Create" asp-route-id="@book.BookId" class="btn btn-secondary">Edit</a>*@
                             <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-danger">Delete</a>
                         </div>
                     </td>
@@ -84,17 +82,18 @@
                 contentType: "application/json; charset=UTF-8",
                 success: function (response) {
                     console.log(JSON.stringify(response));
+                    var bookId = response['bookId'];
                     var title = response['title'];
                     var author = response['author'];
                     var genre = response['genre'];
                     var status = response['availabilityStatus'];
+                    $('#BookId').val(bookId);
                     $('#Title').val(title);
                     $('#Author').val(author);
                     $('#Genre').val(genre);
                     $('#AvailabilityStatus').val(status.toString()).trigger("change");
                     $("#Save").attr("style", "display:none");
                     $("#Update").attr("style", "display:block");
-
                 },
             });
         }
