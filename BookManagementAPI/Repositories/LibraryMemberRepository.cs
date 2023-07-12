@@ -17,7 +17,7 @@ namespace BookManagementAPI.Repositories
         }
         public async Task<LibraryMembersModel> GetMemberById(int MemberId)
         {
-            return await _context.Members.FirstOrDefaultAsync(x => x.MembersId == MemberId);
+            return await _context.Members.FirstOrDefaultAsync(x => x.MemberId == MemberId);
         }
         public async Task<LibraryMembersModel> AddMembers(LibraryMembersModel model)
         {
@@ -27,7 +27,7 @@ namespace BookManagementAPI.Repositories
         }
         public async Task<LibraryMembersModel> UpdateMembers(LibraryMembersModel model)
         {
-            var result = await _context.Members.FirstOrDefaultAsync(a => a.MembersId == model.MembersId);
+            var result = await _context.Members.FirstOrDefaultAsync(a => a.MemberId == model.MemberId);
 
             if(result != null)
             {
@@ -43,7 +43,7 @@ namespace BookManagementAPI.Repositories
         }
         public async Task DeleteMembers(int MemberId)
         {
-            var result = await _context.Members.FirstOrDefaultAsync(a => a.MembersId == MemberId);
+            var result = await _context.Members.FirstOrDefaultAsync(a => a.MemberId == MemberId);
             if(result != null)
             {
                 _context.Members.Remove(result);

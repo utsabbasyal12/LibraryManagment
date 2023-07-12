@@ -11,7 +11,7 @@
     <div class="form-group row p-4">
         <fieldset class="row border">
             <div class="row">
-                <input type="text" asp-for="MembersId" hidden="hidden" />
+                <input type="text" asp-for="MemberId" hidden="hidden" />
                 <div class="mb-3 col-md-3">
                     <label class="form-label">Name</label>
                     <input type="text" class="form-control" asp-for="Name" />
@@ -56,7 +56,7 @@
                     <td>
                         <div class="btn-group btn-group-sm">
                             <button type="button" class="btn btn-secondary" onclick="Edit(@member.MemberId)">Edit</button>
-                            <a asp-controller="Book" asp-action="Delete" asp-route-id="@member.MemberId" class="btn btn-danger">Delete</a>
+                            <a asp-controller="Member" asp-action="Delete" asp-route-id="@member.MemberId" class="btn btn-danger">Delete</a>
                         </div>
                     </td>
                 </tr>
@@ -64,3 +64,31 @@
         }
     </tbody>
 </table>
+
+@section scripts{
+    <script type="text/javascript">
+
+        function Edit(Id) {
+            debugger;
+            $.ajax({
+                url: "/Member/GetMemberById/?Id=" + Id,
+                type: "GET",
+                dataType: 'json',
+                contentType: "application/json; charset=UTF-8",
+                success: function (response) {
+                    console.log(JSON.stringify(response));
+                    var memberId = response['memberId'];
+                    var name = response['name'];
+                    var contactNo = response['contactNo'];
+                    var address = response['address'];
+                    $('#MemberId').val(memberId);
+                    $('#Name').val(name);
+                    $('#ContactNo').val(contactNo);
+                    $('#Address').val(address);
+                    $("#Save").attr("style", "display:none");
+                    $("#Update").attr("style", "display:block");
+                },
+            });
+        }
+    </script>
+}

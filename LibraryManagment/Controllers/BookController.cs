@@ -44,13 +44,13 @@ namespace LibraryManagment.Controllers
                         var data = await _manager.UpdateBookAsync(bookView);
                         if (data != null)
                         {
-                            TempData["successMessage"] = "Employee Updated Successfully";
+                            TempData["successMessage"] = "Book Updated Successfully";
                             return RedirectToAction("Index");
                         }
                         else
                         {
                             await GetAllBooks();
-                            TempData["errorMessage"] = "Error on Adding";
+                            TempData["errorMessage"] = "Error on Updating";
                             return View("Index", bookView);
 
                         }
@@ -60,7 +60,7 @@ namespace LibraryManagment.Controllers
                         var data = await _manager.AddBookAsync(bookView);
                         if (data != null)
                         {
-                            TempData["successMessage"] = "Employee Created Successfully";
+                            TempData["successMessage"] = "Book Created Successfully";
                             return RedirectToAction("Index");
                         }
                         else
@@ -91,30 +91,6 @@ namespace LibraryManagment.Controllers
         {
             var Data = await _manager.GetBookByIdAsync(Id);
             return Json(Data);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Update(BookViewModel bookView)
-        {
-            if (ModelState.IsValid)
-            {
-                var data = await _manager.UpdateBookAsync(bookView);
-                if (data != null)
-                {
-                    TempData["successMessage"] = "Employee Updated Successfully";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    await GetAllBooks();
-                    TempData["errorMessage"] = "Error on Adding";
-                    return View("Index", bookView);
-
-                }
-            }
-            else
-            {
-                return View("Index", bookView);
-            }
         }
         public async Task<IActionResult> Delete(int Id)
         {
