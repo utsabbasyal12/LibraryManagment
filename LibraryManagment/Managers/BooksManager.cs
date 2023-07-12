@@ -28,8 +28,6 @@ namespace LibraryManagment.Managers
                 }
                 else
                 {
-                    // Handle the error response
-                    // For example, throw an exception or return an empty list
                     return new List<BookViewModel>();
                 }
             }
@@ -37,6 +35,35 @@ namespace LibraryManagment.Managers
             {
 
                 throw ex;
+            }
+        }
+        public async Task<BookViewModel> GetBookByIdAsync(int Id)
+        {
+            var Data = await _httpClient.GetAsync(BookManagmentEndpoint.GetById + "?Id=" + Id);
+            if (Data.IsSuccessStatusCode)
+            {
+                var responseData = await Data.Content.ReadAsStringAsync();
+                var books = JsonConvert.DeserializeObject<BookViewModel>(responseData);
+                return books;
+            }
+            else
+            {
+                return new BookViewModel();
+            }
+        }
+        public async Task<BookViewModel> AddBookAsync(BookViewModel viewModel)
+        {
+            var Data = await _httpClient.PostAsJsonAsync(BookManagmentEndpoint.Add, viewModel);
+            if (Data != null)
+            {
+                var responseData = await Data.Content.ReadAsStringAsync();
+                var books = JsonConvert.DeserializeObject<BookViewModel>(responseData);
+                return books;
+
+            }
+            else
+            {
+                return new BookViewModel();
             }
         }
     }

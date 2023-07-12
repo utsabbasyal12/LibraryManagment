@@ -34,28 +34,29 @@ namespace LibraryManagment.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(BookViewModel bookView)
+        public async Task<IActionResult> Create(BookViewModel bookView)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var book = new BooksModel()
+                    var Message = await _manager.AddBookAsync(bookView);
+                    if (Message != null)
                     {
-                        Title = bookView.Title,
-                        Author = bookView.Author,
-                        Genre = bookView.Genre,
-                        AvailabilityStatus = bookView.AvailabilityStatus,
-                    };
-                    _context.Books.Add(book);
-                    _context.SaveChanges();
-                    TempData["successMessage"] = "Employee Created Successfully";
-                    return RedirectToAction("Index");
+                        TempData["successMessage"] = "Employee Created Successfully";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        await GetAllBooks();
+                        TempData["errorMessage"] ="Error on Adding";
+                        return View("Index", bookView);
+
+                    }
                 }
                 else
                 {
-                    TempData["errorMessage"] = "Model data is not valid";
-                    return View();
+                    return View("Index", bookView);
                 }
             }
             catch (Exception ex)
