@@ -39,7 +39,7 @@ namespace LibraryManagment.Managers
         }
         public async Task<BookViewModel> GetBookByIdAsync(int Id)
         {
-            var Data = await _httpClient.GetAsync(BookManagmentEndpoint.GetById + "?Id=" + Id);
+            var Data = await _httpClient.GetAsync(BookManagmentEndpoint.GetById + "?BookId=" + Id);
             if (Data.IsSuccessStatusCode)
             {
                 var responseData = await Data.Content.ReadAsStringAsync();
@@ -64,6 +64,34 @@ namespace LibraryManagment.Managers
             else
             {
                 return new BookViewModel();
+            }
+        }
+        public async Task<BookViewModel> UpdateBookAsync(BookViewModel viewModel)
+        {
+            var Data = await _httpClient.PostAsJsonAsync(BookManagmentEndpoint.Update, viewModel);
+            if (Data != null)
+            {
+
+                var responseData = await Data.Content.ReadAsStringAsync();
+                var books = JsonConvert.DeserializeObject<BookViewModel>(responseData);
+                return books;
+            }
+            else
+            {
+                return new BookViewModel();
+            }
+        }
+        public async Task<string> DeleteBookAsync(int Id)
+        {
+            var data = await _httpClient.GetAsync(BookManagmentEndpoint.Delete + "?Id=" + Id);
+            if (data.IsSuccessStatusCode)
+            {
+                var responseData = await data.Content.ReadAsStringAsync();
+                return responseData;
+            }
+            else
+            {
+                return "";
             }
         }
     }
