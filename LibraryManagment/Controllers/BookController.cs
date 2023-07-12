@@ -8,12 +8,10 @@ namespace LibraryManagment.Controllers
 {
     public class BookController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IBooksManager _manager;
 
-        public BookController(ApplicationDbContext context, IBooksManager manager)
+        public BookController(IBooksManager manager)
         {
-            _context = context;
             _manager = manager;
         }
         public async Task GetAllBooks()

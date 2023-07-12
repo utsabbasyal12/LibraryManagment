@@ -1,0 +1,66 @@
+﻿@model LibraryManagment.ViewModels.MembersViewModel
+@using LibraryManagment.ViewModels;
+
+@{
+    ViewData["Title"] = "Member Details";
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+
+<form asp-action="Create" asp-controller="Member" method="post">
+    <div class="form-group row p-4">
+        <fieldset class="row border">
+            <div class="row">
+                <input type="text" asp-for="MembersId" hidden="hidden" />
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" asp-for="Name" />
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Contact No</label>
+                    <input type="text" class="form-control" asp-for="ContactNo" />
+                </div>
+                <div class="mb-3 col-md-3">
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-control" asp-for="Address" />
+                </div>
+            </div>
+            <div class="d-grid col-md-1 mb-2">
+                <button type="submit" id="Save" class="btn btn-success">Save</button>
+                <button type="submit" id="Update" name="Update" class="btn btn-warning" style="display:none">Update</button>
+            </div>
+        </fieldset>
+    </div>
+</form>
+
+<table class="table table-responsive table-hover table-bordered">
+    <thead>
+        <tr class="table-active">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Contact Number</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.Members != null)
+        {
+            @foreach (var member in ViewBag.Members)
+            {
+                <tr>
+                    <td>@member.MemberId</td>
+                    <td>@member.Name</td>
+                    <td>@member.ContactNo</td>
+                    <td>@member.Address</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-secondary" onclick="Edit(@member.MemberId)">Edit</button>
+                            <a asp-controller="Book" asp-action="Delete" asp-route-id="@member.MemberId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
