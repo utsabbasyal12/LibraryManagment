@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryManagment", "LibraryManagment\LibraryManagment.csproj", "{F6B23102-F58C-4F7F-997C-BBC6ADAC3555}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryManagment", "LibraryManagment\LibraryManagment.csproj", "{F6B23102-F58C-4F7F-997C-BBC6ADAC3555}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManagementAPI", "BookManagementAPI\BookManagementAPI.csproj", "{02FB1908-3609-4914-AC43-5F0E063D4981}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{78173C6B-6D98-4643-9AAD-2A86C8A8735F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{F2A0E3C4-83CA-4384-AA78-18B583C49068}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,17 @@ Global
 		{F6B23102-F58C-4F7F-997C-BBC6ADAC3555}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6B23102-F58C-4F7F-997C-BBC6ADAC3555}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6B23102-F58C-4F7F-997C-BBC6ADAC3555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02FB1908-3609-4914-AC43-5F0E063D4981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02FB1908-3609-4914-AC43-5F0E063D4981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02FB1908-3609-4914-AC43-5F0E063D4981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02FB1908-3609-4914-AC43-5F0E063D4981}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F6B23102-F58C-4F7F-997C-BBC6ADAC3555} = {F2A0E3C4-83CA-4384-AA78-18B583C49068}
+		{02FB1908-3609-4914-AC43-5F0E063D4981} = {78173C6B-6D98-4643-9AAD-2A86C8A8735F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD976B9A-594E-4006-B8AD-EB3E99A434D7}

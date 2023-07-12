@@ -1,4 +1,5 @@
 ﻿using LibraryManagment.Data;
+using LibraryManagment.Managers;
 using LibraryManagment.Models;
 using LibraryManagment.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -8,33 +9,24 @@ namespace LibraryManagment.Controllers
     public class BookController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IBooksManager _manager;
 
-        public BookController(ApplicationDbContext context)
+        public BookController(ApplicationDbContext context, IBooksManager manager)
         {
             _context = context;
+            _manager = manager;
+        }
+        public async Task GetAllBooks()
+        {
+            var Data = await _manager.GetAllBooksAsync();
+            ViewBag.BookModel = Data;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(BookViewModel viewModel)
         {
-            var books = _context.Books.ToList();
-            List<BookViewModel> list = new List<BookViewModel>();
-            if (books != null)
-            {
-                foreach (var book in books)
-                {
-                    var BookViewModel = new BookViewModel()
-                    {
-                        BookId = book.BookId,
-                        Title = book.Title,
-                        Author = book.Author,
-                        Genre = book.Genre,
-                        AvailabilityStatus = book.AvailabilityStatus,
-                    };
-                    list.Add(BookViewModel);
-                }
-                return View(list);
-            }
-            return View(list);
+            await GetAllBooks();
+            return View(viewModel);
+           
         }
         [HttpGet]
         public IActionResult Create()

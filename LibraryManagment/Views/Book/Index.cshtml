@@ -1,4 +1,4 @@
-﻿@model List<LibraryManagment.ViewModels.BookViewModel>
+﻿@model LibraryManagment.ViewModels.BookViewModel
 
 @{
     ViewData["Title"] = "Books Details";
@@ -20,7 +20,26 @@
             </tr>
         </thead>
         <tbody>
-            @if(Model != null && Model.Any())
+            @if (ViewBag.BookModel != null)
+            {
+                @foreach (var book in ViewBag.BookModel)
+                {
+                    <tr>
+                        <td>@book.BookId</td>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>
+                        <td>@book.Genre</td>
+                        <td>@(book.AvailabilityStatus == 1 ? "Available" : "Reserved")</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a asp-controller="Book" asp-action="Edit" asp-route-id="@book.BookId" class="btn btn-secondary">Edit</a>
+                                <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            @*@if(Model != null && Model.Any())
             {
                 @foreach (var book in Model)
                 {
@@ -46,7 +65,7 @@
                         No Record Found
                     </td>
                 </tr>
-            }
+            }*@
         </tbody>
     </table>
 </form>
