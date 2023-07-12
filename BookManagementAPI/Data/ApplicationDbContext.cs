@@ -9,5 +9,6 @@ namespace BookManagementAPI.Models
         }
 
         public DbSet<BooksModel> Books { get; set; }
+        public DbSet<LibraryMembersModel> Members { get; set; }
     }
 }
