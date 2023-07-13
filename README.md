@@ -11,6 +11,10 @@ When Edit button is clicked from a table row, save button change to update butto
 
 ![image](https://github.com/utsabbasyal12/LibraryManagment/assets/45966409/29ab3235-f440-4bed-b567-0787c29c2bdb)
 
+This Page handel CRUD of Loan
+
+![image](https://github.com/utsabbasyal12/LibraryManagment/assets/45966409/697ee9df-ed8e-4ecd-9f94-71de3d19d33a)
+
 Project UI Map
 
 ![image](https://github.com/utsabbasyal12/LibraryManagment/assets/45966409/e0757a4b-34d1-4b1d-9408-7c18f5e6239d)
