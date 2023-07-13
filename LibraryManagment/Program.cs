@@ -11,8 +11,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHttpClient();
+
 builder.Services.AddTransient<IBooksManager, BooksManager>();
 builder.Services.AddTransient<IMemberManager, MemberManager>();
+builder.Services.AddTransient<ILoanManager, LoanManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

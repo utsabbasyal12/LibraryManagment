@@ -9,6 +9,6 @@ namespace LibraryManagment.Data
         {
         }
 
-        public DbSet<BooksModel> Books { get; set; }
+        /*public DbSet<BooksModel> Books { get; set; }*/
     }
 }

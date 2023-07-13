@@ -1,0 +1,121 @@
+﻿@model LibraryManagment.ViewModels.LoanViewModel
+@using LibraryManagment.ViewModels;
+
+@{
+    ViewData["Title"] = "Loan Details";
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+
+<form asp-action="Create" asp-controller="Loan" method="post">
+    <div class="form-group row p-4">
+        <fieldset class="row border">
+            <input type="text" asp-for="LoanId" hidden="hidden" />
+            <div class="mb-3 col-md-2">
+                <label class="mb-2 control-label">Member</label>
+                <div>
+                    <select class="form-select" asp-for="MemberId" name="MemberId" asp-items="@(new SelectList((List<SelectListItem>)ViewBag.MemberName, "Value", "Text"))">
+                        <option selected="selected" value="">Please select</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 col-md-2">
+                <label class="mb-2 control-label">Book</label>
+                <div>
+                    <select class="form-select" asp-for="BookId" name="BookId" asp-items="@(new SelectList((List<SelectListItem>)ViewBag.BookName, "Value", "Text"))">
+                        <option selected="selected" value="">Please select</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 col-md-3">
+                <label class="form-label">Issue Date</label>
+                <input type="date" class="form-control" asp-for="IssueDate" id="IssueDate" />
+            </div>
+            <div class="mb-3 col-md-3">
+                <label class="form-label">Return Date</label>
+                <input type="date" class="form-control" asp-for="ReturnDate" id="ReturnDate" />
+            </div>
+            <div class="d-grid col-md-1 mb-2">
+                <button type="submit" id="Save" class="btn btn-success">Save</button>
+                <button type="submit" id="Update" name="Update" class="btn btn-warning" style="display:none">Update</button>
+            </div>
+        </fieldset>
+    </div>
+</form>
+
+<table class="table table-responsive table-hover table-bordered">
+    <thead>
+        <tr class="table-active">
+            <th>Id</th>
+            <th>Member</th>
+            <th>Book</th>
+            <th>Issue Date</th>
+            <th>Return Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.Loans != null)
+        {
+            @foreach (var book in ViewBag.Loans)
+            {
+                <tr>
+                    <td>@book.Loan.LoanId</td>
+                    <td>@book.MemberName</td>
+                    <td>@book.BookName</td>
+                    <td>@book.Loan.IssueDate</td>
+                    <td>@book.Loan.ReturnDate</td>
+                    <td>
+
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-secondary" onclick="Edit(@book.Loan.LoanId)">Edit</button>
+                            <a asp-controller="Loan" asp-action="Delete" asp-route-id="@book.Loan.LoanId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script type="text/javascript">
+        function formatDate(date) {
+            var d = new Date(date);
+            var day = d.getDate();
+            var month = d.getMonth() + 1;
+            var year = d.getFullYear();
+
+            // Pad day and month with leading zeros if necessary
+            var paddedDay = (day < 10) ? '0' + day : day;
+            var paddedMonth = (month < 10) ? '0' + month : month;
+
+            return paddedMonth + '/' + paddedDay + '/' + year;
+        }
+
+        function Edit(Id) {
+            debugger;
+            $.ajax({
+                url: "/Loan/GetLoanById/?Id=" + Id,
+                type: "GET",
+                dataType: 'json',
+                contentType: "application/json; charset=UTF-8",
+                success: function (response) {
+                    console.log(JSON.stringify(response));
+                    var loanId = response['loanId'];
+                    var memberId = response['memberId'];
+                    var bookId = response['bookId'];
+                    var issueDate = formatDate(response.issueDate);
+                    var returnDate = formatDate(response.returnDate);
+                    $('#LoanId').val(loanId);
+                    $('#MemberId').val(memberId.toString()).trigger("change");
+                    $('#BookId').val(bookId.toString()).trigger("change");
+                    $('#IssueDate').val(issueDate);
+                    $('#ReturnDate').val(returnDate);
+                    $("#Save").attr("style", "display:none");
+                    $("#Update").attr("style", "display:block");
+                },
+            });
+        }
+    </script>
+}
