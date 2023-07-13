@@ -13,10 +13,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//repositories added
 builder.Services.AddTransient<IBookMgmtRepository, BookMgmtRepository>();
 builder.Services.AddTransient<ILibraryMemberRepository, LibraryMemberRepository>();
+builder.Services.AddTransient<ILoanRepository, LoanRepository>();
+
+//services added
 builder.Services.AddTransient<IBookMgmtService, BookMgmtService>();
 builder.Services.AddTransient<ILibraryMemberService, LibraryMemberService>();
+builder.Services.AddTransient<ILoanService, LoanService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
